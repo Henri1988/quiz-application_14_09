@@ -10,6 +10,7 @@ public class QuestionDao implements Dao<Question, Integer> {
             Logger.getLogger(QuestionDao.class.getName());
     private final Optional<Connection> connection;
 
+
     public QuestionDao() {
         this.connection = JdbcConnection.getConnection();
     }

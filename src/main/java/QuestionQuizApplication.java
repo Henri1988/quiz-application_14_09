@@ -25,6 +25,9 @@ public class QuestionQuizApplication {
             LOGGER.log(Level.WARNING, ex.getMessage());
         }
 
+
+        int x;
+
         // ADDING QUESTION TO DATABASE
         Question firstQuestion =
                 new Question("What is the capital of France?", "Geography", 1);
