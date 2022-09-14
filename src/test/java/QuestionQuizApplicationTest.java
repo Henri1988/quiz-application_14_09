@@ -108,6 +108,7 @@ public class QuestionQuizApplicationTest {
 
     @Test
     public void getQuestion() {
+
     }
 
     @Test
@@ -115,7 +116,16 @@ public class QuestionQuizApplicationTest {
     }
 
     @Test
-    public void deleteQuestion() {
+    public void deleteExistingQuestion() {
+        var q = new Question("q1", "t1", 1);
+        assertEquals(0, q.getId());
+        assertEquals("q1", q.getName());
+        assertEquals("t1", q.getTopic());
+        assertEquals(1, q.getDifficulty());
+
+        QUESTION_DAO.delete(q);
+        assertEquals(0, q.getId());
+
     }
 
     @Test
