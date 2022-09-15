@@ -22,19 +22,16 @@ public class QuestionQuizApplicationTest {
     }
 
     @Test
-    // each test follows the AAA principle
     public void addEmptyQuestion() {
         // Arrange
         var q = new Question();
         assertEquals(0, q.getId());
         assertNull(q.getName());
 
-        // Act
         Exception exception = assertThrows(PSQLException.class, () -> {
             QUESTION_DAO.save(q);
         });
 
-        // Assert
         assertTrue(exception.getMessage().contains("ERROR: null value in column \"name\" of relation \"question\" violates not-null constraint"));
     }
 
@@ -107,12 +104,17 @@ public class QuestionQuizApplicationTest {
     }
 
     @Test
-    public void getQuestion() {
+    public void getQuestion() throws SQLException {
+        var q = new Question("q1", "t1", 1);
+        assertEquals(0, q.getId());
+        assertEquals("q1", q.getName());
+        assertEquals("t1", q.getTopic());
+        assertEquals(1, q.getDifficulty());
 
-    }
+        QUESTION_DAO.save(q);
 
-    @Test
-    public void updateQuestion() {
+        assertEquals(q, q);
+
     }
 
     @Test
@@ -123,9 +125,10 @@ public class QuestionQuizApplicationTest {
         assertEquals("t1", q.getTopic());
         assertEquals(1, q.getDifficulty());
         QUESTION_DAO.save(q);
+
         assertNotEquals(0, q.getId());
         QUESTION_DAO.delete(q);
-        assertNotEquals(0, q.getId());
+        assertNotEquals(q, q.getId());
     }
 
     @Test

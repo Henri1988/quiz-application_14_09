@@ -41,8 +41,6 @@ public class QuestionDao implements Dao<Question, Integer> {
         });
     }
 
-
-
     @Override
     public void save(Question question) throws SQLException {
         String message = "The question to be added should not be null";
@@ -65,7 +63,6 @@ public class QuestionDao implements Dao<Question, Integer> {
 
         int numberOfInsertedRows = statement.executeUpdate();
 
-        // Retrieve the auto-generated id
         if (numberOfInsertedRows > 0) {
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 if (resultSet.next()) {
