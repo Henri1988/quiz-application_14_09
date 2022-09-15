@@ -19,7 +19,6 @@ public class QuestionDao implements Dao<Question, Integer> {
     public Optional<Question> get(int id) {
         return connection.flatMap(conn -> {
             Optional<Question> question = Optional.empty();
-            // TODO: use prepareStatemnt to aviod sql injection, like searchByTopicMethod
             String sql = "SELECT * FROM question WHERE id = " + id;
 
             try (Statement statement = conn.createStatement();
@@ -42,10 +41,7 @@ public class QuestionDao implements Dao<Question, Integer> {
         });
     }
 
-    @Override
-    public Collection<Question> getAll() {
-        return null;
-    }
+
 
     @Override
     public void save(Question question) throws SQLException {
@@ -71,7 +67,6 @@ public class QuestionDao implements Dao<Question, Integer> {
 
         // Retrieve the auto-generated id
         if (numberOfInsertedRows > 0) {
-            // TODO Remove try-catches and throw exception instead from here and all other methods.
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     question.setId(resultSet.getInt(1));
@@ -182,5 +177,10 @@ public class QuestionDao implements Dao<Question, Integer> {
                 LOGGER.log(Level.SEVERE, null, ex);
             }
         });
+    }
+
+    @Override
+    public Collection<Question> getAll() {
+        return null;
     }
 }
